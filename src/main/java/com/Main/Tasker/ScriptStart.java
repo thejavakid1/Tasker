@@ -6,10 +6,12 @@ import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Intent;
 import android.content.Context;
+import android.os.Environment;
 import android.renderscript.Allocation;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.NotificationCompat;
 
+import java.io.File;
 import java.io.IOException;
 
 /**
@@ -27,21 +29,21 @@ public class ScriptStart extends IntentService{
      @Override
      protected void onHandleIntent(Intent workIntent) {
          Notification n;
+         String state = Environment.getExternalStorageState();
+         if (Environment.MEDIA_MOUNTED.equals(state)) {
+             File Dir = new File(Environment.getExternalStorageDirectory().getAbsolutePath()+"/Tasker/Scripts");
+             if(Dir.exists()){
+
+             }else{
+             }
+         } else {
+
+         }
          try {
-             Runtime.getRuntime().exec("su -c echo");
-             n = new Notification.Builder(this)
-                     .setContentTitle("Tasker:")
-                     .setContentText("Starting Scripts Failed!").build();
-             NotificationManager notificationManager =(NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+             Runtime.getRuntime().exec("su -c for file in ./*; do ./$file; done");
 
-             notificationManager.notify(1837, n);
          } catch (IOException e) {
-             n = new Notification.Builder(this)
-                     .setContentTitle("Tasker:")
-                     .setContentText("Starting Scripts Failed!").build();
-             NotificationManager notificationManager =(NotificationManager) getSystemService(NOTIFICATION_SERVICE);
 
-             notificationManager.notify(1837, n);
          }
          String dataString = workIntent.getDataString();
      }
