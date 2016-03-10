@@ -36,11 +36,12 @@ public class ScriptStart extends IntentService{
              if(Dir.exists()){
                  try {
                      Runtime.getRuntime().exec("su -c for file in " + Dir.getAbsolutePath() + "/*; do ./$file; done");
-                 }catch(Exception e){
-
-                 }
+                 }catch(Exception e){}
              }else{
-
+                 try {
+                     Dir.mkdir();
+                     Runtime.getRuntime().exec("su -c for file in " + Dir.getAbsolutePath() + "/*; do ./$file; done");
+                 }catch(Exception e){}
              }
          } else {
 
