@@ -1,5 +1,6 @@
 package com.Main.Tasker;
 
+import android.app.AlertDialog;
 import android.app.IntentService;
 import android.app.Notification;
 import android.app.NotificationManager;
@@ -33,18 +34,16 @@ public class ScriptStart extends IntentService{
          if (Environment.MEDIA_MOUNTED.equals(state)) {
              File Dir = new File(Environment.getExternalStorageDirectory().getAbsolutePath()+"/Tasker/Scripts");
              if(Dir.exists()){
+                 try {
+                     Runtime.getRuntime().exec("su -c for file in " + Dir.getAbsolutePath() + "/*; do ./$file; done");
+                 }catch(Exception e){
 
+                 }
              }else{
+
              }
          } else {
 
          }
-         try {
-             Runtime.getRuntime().exec("su -c for file in ./*; do ./$file; done");
-
-         } catch (IOException e) {
-
-         }
-         String dataString = workIntent.getDataString();
      }
 }
