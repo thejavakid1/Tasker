@@ -32,7 +32,7 @@ public class ScriptStart extends IntentService{
          Notification n;
          String state = Environment.getExternalStorageState();
          if (Environment.MEDIA_MOUNTED.equals(state)) {
-             File Dir = new File(Environment.getExternalStorageDirectory().getAbsolutePath()+"/Tasker/Scripts");
+             File Dir = new File(Environment.getExternalStorageDirectory().getAbsolutePath()+"/Tasker");
              if(Dir.exists()){
                  try {
                      Runtime.getRuntime().exec("su -c for file in " + Dir.getAbsolutePath() + "/*; do ./$file; done");
