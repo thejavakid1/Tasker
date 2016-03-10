@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.content.Context;
 import android.renderscript.Allocation;
 import android.support.design.widget.Snackbar;
+import android.support.v7.app.NotificationCompat;
 
 import java.io.IOException;
 
@@ -25,16 +26,22 @@ public class ScriptStart extends IntentService{
     }
      @Override
      protected void onHandleIntent(Intent workIntent) {
+         Notification n;
          try {
              Runtime.getRuntime().exec("su -c echo");
-         } catch (IOException e) {
-             PendingIntent pIntent = PendingIntent.getActivity(this, (int) System.currentTimeMillis(), workIntent, 0);
-             Notification n  = new Notification.Builder(this)
+             n = new Notification.Builder(this)
                      .setContentTitle("Tasker:")
                      .setContentText("Starting Scripts Failed!").build();
              NotificationManager notificationManager =(NotificationManager) getSystemService(NOTIFICATION_SERVICE);
 
-             notificationManager.notify(0, n);
+             notificationManager.notify(1837, n);
+         } catch (IOException e) {
+             n = new Notification.Builder(this)
+                     .setContentTitle("Tasker:")
+                     .setContentText("Starting Scripts Failed!").build();
+             NotificationManager notificationManager =(NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+
+             notificationManager.notify(1837, n);
          }
          String dataString = workIntent.getDataString();
      }

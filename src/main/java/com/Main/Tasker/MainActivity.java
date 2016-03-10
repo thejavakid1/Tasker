@@ -23,11 +23,6 @@ public class MainActivity extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                try {
-                    Runtime.getRuntime().exec("su -c ");
-                } catch (IOException e) {
-                    Snackbar.make(view, "Error executing command.", Snackbar.LENGTH_SHORT).setAction("Action", null).show();
-                }
             }
         });
     }
