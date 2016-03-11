@@ -1,5 +1,6 @@
 package com.Main.Tasker;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Environment;
 import android.support.design.widget.Snackbar;
@@ -24,17 +25,25 @@ public class MainActivity extends AppCompatActivity {
         final TextView InstallLocation = (TextView)findViewById(R.id.InstallLocation);
         setSupportActionBar(toolbar);
         Button fab = (Button) findViewById(R.id.Add);
+        Boolean DoesInstallExist = new File(Environment.getExternalStorageDirectory().getAbsolutePath()+"/Tasker").exists();
+        if(DoesInstallExist){
+            InstallLocation.setText(Environment.getExternalStorageDirectory().getAbsolutePath() + "/Tasker/");
+        }
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 try {
                     new File(Environment.getExternalStorageDirectory().getAbsolutePath()+"/Tasker").mkdir();
-                    InstallLocation.setText(Environment.getExternalStorageDirectory().getAbsolutePath() + "/Tasker/Scripts");
+                    InstallLocation.setText(Environment.getExternalStorageDirectory().getAbsolutePath() + "/Tasker/");
                 }catch(Exception e){
                     InstallLocation.setText("There was a error! This app may not be compatable with this device (sorry).");
                 }
             }
         });
+    }
+    public void Help(View v){
+        Intent myIntent = new Intent(this, Help.class);
+        this.startActivity(myIntent);
     }
 
 }

@@ -1,0 +1,4 @@
+Using Tasker:
+Add Scripts to the /(Sd card)/Tasker to be launched automatic on boot.
+Scripts are executed with su. Hence, this app requires root. Additionally,
+the name is not a accident it is intentional.
