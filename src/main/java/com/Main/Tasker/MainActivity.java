@@ -35,7 +35,7 @@ public class MainActivity extends AppCompatActivity {
                 try {
                     if(!DoesInstallExist) {
                         new File(Environment.getExternalStorageDirectory().getAbsolutePath() + "/Tasker").mkdir();
-                        InstallLocation.setText(Environment.getExternalStorageDirectory().getAbsolutePath() + "/Tasker/");
+                        InstallLocation.setText(Environment.getExternalStorageDirectory().getAbsolutePath() + "/Tasker");
                     }else{
                         Snackbar.make(view, "sdcard/Tasker folder already created!", Snackbar.LENGTH_SHORT).show();
                     }
