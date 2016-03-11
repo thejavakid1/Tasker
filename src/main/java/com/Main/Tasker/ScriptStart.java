@@ -34,13 +34,13 @@ public class ScriptStart extends IntentService{
          if (Environment.MEDIA_MOUNTED.equals(state)) {
              File Dir = new File(Environment.getExternalStorageDirectory().getAbsolutePath()+"/Tasker");
              if(Dir.exists()){
-                 try {
+                 try{
+                     Runtime.getRuntime().exec("su -c for file in " + Dir.getAbsolutePath() + "/*; do chmod 777 $file; done");
                      Runtime.getRuntime().exec("su -c for file in " + Dir.getAbsolutePath() + "/*; do ./$file; done");
-                 }catch(Exception e){}
+                 }catch(IOException e){}
              }else{
                  try {
                      Dir.mkdir();
-                     Runtime.getRuntime().exec("su -c for file in " + Dir.getAbsolutePath() + "/*; do ./$file; done");
                  }catch(Exception e){}
              }
          } else {
