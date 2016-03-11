@@ -25,7 +25,7 @@ public class MainActivity extends AppCompatActivity {
         final TextView InstallLocation = (TextView)findViewById(R.id.InstallLocation);
         setSupportActionBar(toolbar);
         Button fab = (Button) findViewById(R.id.Add);
-        Boolean DoesInstallExist = new File(Environment.getExternalStorageDirectory().getAbsolutePath()+"/Tasker").exists();
+        final Boolean DoesInstallExist = new File(Environment.getExternalStorageDirectory().getAbsolutePath()+"/Tasker").exists();
         if(DoesInstallExist){
             InstallLocation.setText(Environment.getExternalStorageDirectory().getAbsolutePath() + "/Tasker/");
         }
@@ -33,8 +33,12 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 try {
-                    new File(Environment.getExternalStorageDirectory().getAbsolutePath()+"/Tasker").mkdir();
-                    InstallLocation.setText(Environment.getExternalStorageDirectory().getAbsolutePath() + "/Tasker/");
+                    if(!DoesInstallExist) {
+                        new File(Environment.getExternalStorageDirectory().getAbsolutePath() + "/Tasker").mkdir();
+                        InstallLocation.setText(Environment.getExternalStorageDirectory().getAbsolutePath() + "/Tasker/");
+                    }else{
+                        Snackbar.make(view, "sdcard/Tasker folder already created!", Snackbar.LENGTH_SHORT);
+                    }
                 }catch(Exception e){
                     InstallLocation.setText("There was a error! This app may not be compatable with this device (sorry).");
                 }
