@@ -37,7 +37,7 @@ public class MainActivity extends AppCompatActivity {
                         new File(Environment.getExternalStorageDirectory().getAbsolutePath() + "/Tasker").mkdir();
                         InstallLocation.setText(Environment.getExternalStorageDirectory().getAbsolutePath() + "/Tasker/");
                     }else{
-                        Snackbar.make(view, "sdcard/Tasker folder already created!", Snackbar.LENGTH_SHORT);
+                        Snackbar.make(view, "sdcard/Tasker folder already created!", Snackbar.LENGTH_SHORT).show();
                     }
                 }catch(Exception e){
                     InstallLocation.setText("There was a error! This app may not be compatable with this device (sorry).");
