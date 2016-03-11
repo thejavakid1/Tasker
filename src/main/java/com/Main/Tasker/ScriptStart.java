@@ -11,7 +11,9 @@ import android.os.Environment;
 import android.renderscript.Allocation;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.NotificationCompat;
+import android.widget.Toast;
 
+import java.io.DataOutputStream;
 import java.io.File;
 import java.io.IOException;
 
@@ -33,11 +35,25 @@ public class ScriptStart extends IntentService{
          String state = Environment.getExternalStorageState();
          if (Environment.MEDIA_MOUNTED.equals(state)) {
              File Dir = new File(Environment.getExternalStorageDirectory().getAbsolutePath()+"/Tasker");
+             String text = "";
              if(Dir.exists()){
                  try{
-                     Runtime.getRuntime().exec("su -c for file in " + Dir.getAbsolutePath() + "/*; do chmod 777 $file; done");
-                     Runtime.getRuntime().exec("su -c for file in " + Dir.getAbsolutePath() + "/*; do ./$file; done");
-                 }catch(IOException e){}
+                     Process p = Runtime.getRuntime().exec("su");
+                     p.waitFor();
+                     DataOutputStream os = new DataOutputStream(p.getOutputStream());
+                     os.writeBytes("su -c \"for file in " + Environment.getExternalStorageDirectory().getAbsolutePath() + "/Tasker/*; do chmod 777 .$file; done\"");
+                     text += "made files executable.";
+                     p.waitFor();
+                     os.writeBytes("su -c \"for file in "+Environment.getExternalStorageDirectory().getAbsolutePath()+"/Tasker/*; do .$file; done\"");
+                     p.waitFor();
+                     Toast.makeText(getApplicationContext(), text, Toast.LENGTH_SHORT).show();
+                 }catch(IOException e){
+                     text = e.getMessage();
+                     Toast.makeText(getApplicationContext(), text, Toast.LENGTH_SHORT).show();
+                 } catch (InterruptedException e) {
+                     text = e.getMessage();
+                     Toast.makeText(getApplicationContext(), text, Toast.LENGTH_SHORT).show();
+                 }
              }else{
                  try {
                      Dir.mkdir();

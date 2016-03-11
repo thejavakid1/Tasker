@@ -24,7 +24,7 @@
 
         <service
             android:name=".ScriptStart"
-            android:label="My Service">
+            android:label="Script launcherc">
             <intent-filter>
                 <action android:name="com.Main.Tasker" />
             </intent-filter>
