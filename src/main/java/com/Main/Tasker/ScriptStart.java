@@ -14,8 +14,10 @@ import android.support.design.widget.Snackbar;
 import android.support.v7.app.NotificationCompat;
 import android.widget.Toast;
 
+import java.io.BufferedReader;
 import java.io.DataOutputStream;
 import java.io.File;
+import java.io.FileReader;
 import java.io.IOException;
 import java.util.Date;
 import java.util.UUID;
@@ -39,25 +41,26 @@ public class ScriptStart extends IntentService{
          String state = Environment.getExternalStorageState();
          if (Environment.MEDIA_MOUNTED.equals(state)) {
              File Dir = new File(Environment.getExternalStorageDirectory().getAbsolutePath()+"/Tasker");
-             String text = "";
-
              if(Dir.exists()){
                  try{
                      String CR = "\n";
-                     Process p = Runtime.getRuntime().exec("su");
-                     text += " Got su.";
-                     DataOutputStream os = new DataOutputStream(p.getOutputStream());
-                     os.writeBytes("cd " + Dir.getAbsolutePath()+CR);
-                     text += " Entering (sdcard)/Tasker.";
+                     DataOutputStream os;
+                     if("true".equals(readfile())) {
+                         Process p = Runtime.getRuntime().exec("su");
+                         os = new DataOutputStream(p.getOutputStream());
+                         os.writeBytes("cd " + Dir.getAbsolutePath()+CR);
+                     }else{
+                         Process p = Runtime.getRuntime().exec("cd ");
+                         os = new DataOutputStream(p.getOutputStream());
+                         os.writeBytes("cd /mnt/sdcard/Tasker"+CR);
+                     }
                      os.writeBytes("for file in $(pwd)/*; do sh $file; done"+CR);
-                     text += " Executing scripts.";
                      os.writeBytes("exit" +CR);
-                     text += " Done. exiting su...";
                      os.flush();
                      os.close();
-                     showNotification(text, notificationID());
+                     showNotification("attempted to execute scripts with no errors.", "Scripts launched",notificationID());
                  }catch(IOException e) {
-                     showNotification("There was a error!", notificationID());
+                     showNotification("There was a error!", "Script launching failed", notificationID());
                  }
              }else{
                  try {
@@ -68,11 +71,11 @@ public class ScriptStart extends IntentService{
              System.err.println("Broken Enviroment!!");
          }
      }
-    public void showNotification(String text, int notificationID) {
+    public void showNotification(String text, String title, int notificationID) {
         Resources r = getResources();
         Intent targetIntent = new Intent(this, MainActivity.class);
         PendingIntent contentIntent = PendingIntent.getActivity(this, 0, targetIntent, PendingIntent.FLAG_UPDATE_CURRENT);
-        Notification notification = new NotificationCompat.Builder(this).setSmallIcon(android.R.drawable.ic_dialog_alert).setContentTitle("Script").setContentText(text).setContentIntent(contentIntent).build();
+        Notification notification = new NotificationCompat.Builder(this).setSmallIcon(android.R.drawable.ic_dialog_info).setContentTitle(title).setContentText(text).setContentIntent(contentIntent).build();
         NotificationManager notificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
         notificationManager.notify(notificationID, notification);
     }
@@ -82,5 +85,24 @@ public class ScriptStart extends IntentService{
         String last4Str = tmpStr.substring(tmpStr.length() - 5);
         int notificationID = Integer.valueOf(last4Str);
         return notificationID;
+    }
+    public String readfile() {
+        File file = new File(this.getFilesDir(), "Settings");
+        StringBuilder text = new StringBuilder();
+
+        try {
+            BufferedReader br = new BufferedReader(new FileReader(file));
+            String line;
+
+            while ((line = br.readLine()) != null) {
+                text.append(line);
+                text.append('\n');
+            }
+            br.close();
+            return text.toString();
+        } catch (IOException e) {
+            //You'll need to add proper error handling here
+        }
+        return null;
     }
 }

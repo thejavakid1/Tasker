@@ -33,13 +33,14 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 try {
-                    if(!DoesInstallExist) {
+                    if (!DoesInstallExist) {
                         new File(Environment.getExternalStorageDirectory().getAbsolutePath() + "/Tasker").mkdir();
                         InstallLocation.setText(Environment.getExternalStorageDirectory().getAbsolutePath() + "/Tasker");
-                    }else{
+                        Snackbar.make(view, "(sdcard)/Tasker folder created! Restart the app please.", Snackbar.LENGTH_SHORT).show();
+                    } else {
                         Snackbar.make(view, "sdcard/Tasker folder already created!", Snackbar.LENGTH_SHORT).show();
                     }
-                }catch(Exception e){
+                } catch (Exception e) {
                     InstallLocation.setText("There was a error! This app may not be compatable with this device (sorry).");
                 }
             }

@@ -45,4 +45,13 @@
         android:layout_toRightOf="@+id/this_is_id_name"
         android:layout_toEndOf="@+id/this_is_id_name"
         android:onClick="Help" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Settings"
+        android:id="@+id/launch_settings"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
 </RelativeLayout>
