@@ -47,8 +47,7 @@ public class MainActivity extends AppCompatActivity {
         });
     }
     public void Help(View v){
-        Intent myIntent = new Intent(this, Help.class);
-        this.startActivity(myIntent);
+        Intent Help = new Intent(this, Help.class);
+        this.startActivity(Help);
     }
-
 }

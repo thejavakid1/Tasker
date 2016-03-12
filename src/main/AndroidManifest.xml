@@ -40,7 +40,6 @@
         </receiver>
 
         <activity android:name=".Help" />
-        <activity android:name=".Settings"></activity>
     </application>
 
 </manifest>

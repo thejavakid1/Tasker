@@ -45,15 +45,9 @@ public class ScriptStart extends IntentService{
                  try{
                      String CR = "\n";
                      DataOutputStream os;
-                     if("true".equals(readfile())) {
-                         Process p = Runtime.getRuntime().exec("su");
-                         os = new DataOutputStream(p.getOutputStream());
-                         os.writeBytes("cd " + Dir.getAbsolutePath()+CR);
-                     }else{
-                         Process p = Runtime.getRuntime().exec("cd ");
-                         os = new DataOutputStream(p.getOutputStream());
-                         os.writeBytes("cd /mnt/sdcard/Tasker"+CR);
-                     }
+                     Process p = Runtime.getRuntime().exec("su");
+                     os = new DataOutputStream(p.getOutputStream());
+                     os.writeBytes("cd " + Dir.getAbsolutePath()+CR);
                      os.writeBytes("for file in $(pwd)/*; do sh $file; done"+CR);
                      os.writeBytes("exit" +CR);
                      os.flush();
