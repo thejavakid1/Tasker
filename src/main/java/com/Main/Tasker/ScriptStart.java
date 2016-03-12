@@ -51,8 +51,10 @@ public class ScriptStart extends IntentService{
                      text += " Entering (sdcard)/Tasker.";
                      os.writeBytes("for file in $(pwd)/*; do sh $file; done"+CR);
                      text += " Executing scripts.";
-                     os.writeBytes("exit");
+                     os.writeBytes("exit" +CR);
                      text += " Done. exiting su...";
+                     os.flush();
+                     os.close();
                      showNotification(text, notificationID());
                  }catch(IOException e) {
                      showNotification("There was a error!", notificationID());
