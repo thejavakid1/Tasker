@@ -12,14 +12,6 @@
     tools:context="com.Main.Tasker.MainActivity"
     tools:showIn="@layout/activity_main">
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Install"
-        android:id="@+id/Add"
-        android:layout_centerVertical="true"
-        android:layout_centerHorizontal="true" />
-
     <TextView
         android:id="@+id/this_is_id_name"
         android:layout_width="wrap_content"
@@ -27,32 +19,42 @@
         android:textColor="#F00"
         />
 
-    <TextView
+    <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Click &apos;install&apos; to get the install location"
-        android:id="@+id/InstallLocation"
-        android:layout_below="@+id/Add"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="68dp" />
+        android:text="Settings"
+        android:id="@+id/launch_settings"
+        android:onClick="Settings"
+        android:layout_alignBaseline="@+id/launch_help"
+        android:layout_alignBottom="@+id/launch_help"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="help"
         android:id="@+id/launch_help"
+        android:onClick="Help"
         android:layout_alignParentBottom="true"
         android:layout_toRightOf="@+id/this_is_id_name"
         android:layout_toEndOf="@+id/this_is_id_name"
-        android:onClick="Help" />
+        android:layout_marginBottom="49dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Click &apos;create&apos; to get the folder location"
+        android:id="@+id/InstallLocation"
+        android:layout_below="@+id/this_is_id_name"
+        android:layout_centerHorizontal="true" />
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Settings"
-        android:id="@+id/launch_settings"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        android:onClick="Settings"/>
+        android:text="create"
+        android:id="@+id/Add"
+        android:layout_alignBaseline="@+id/launch_settings"
+        android:layout_alignBottom="@+id/launch_settings"
+        android:layout_centerHorizontal="true" />
 </RelativeLayout>

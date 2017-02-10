@@ -1,6 +1,7 @@
 package com.Main.Tasker;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.support.design.widget.Snackbar;
@@ -24,12 +25,12 @@ public class MainActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         final TextView InstallLocation = (TextView)findViewById(R.id.InstallLocation);
         setSupportActionBar(toolbar);
-        Button fab = (Button) findViewById(R.id.Add);
+        Button create = (Button) findViewById(R.id.Add);
         final Boolean DoesInstallExist = new File(Environment.getExternalStorageDirectory().getAbsolutePath()+"/Tasker").exists();
         if(DoesInstallExist){
             InstallLocation.setText(Environment.getExternalStorageDirectory().getAbsolutePath() + "/Tasker/");
         }
-        fab.setOnClickListener(new View.OnClickListener() {
+        create.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 try {
@@ -49,5 +50,9 @@ public class MainActivity extends AppCompatActivity {
     public void Help(View v){
         Intent Help = new Intent(this, Help.class);
         this.startActivity(Help);
+    }
+    public void Settings(View v){
+        Intent Settings = new Intent(this, Settings.class);
+        this.startActivity(Settings);
     }
 }
