@@ -43,16 +43,30 @@ public class ScriptStart extends IntentService{
              File Dir = new File(Environment.getExternalStorageDirectory().getAbsolutePath()+"/Tasker");
              if(Dir.exists()){
                  try{
-                     String CR = "\n";
-                     DataOutputStream os;
-                     Process p = Runtime.getRuntime().exec("su");
-                     os = new DataOutputStream(p.getOutputStream());
-                     os.writeBytes("cd " + Dir.getAbsolutePath()+CR);
-                     os.writeBytes("for file in $(pwd)/*; do sh $file; done"+CR);
-                     os.writeBytes("exit" +CR);
-                     os.flush();
-                     os.close();
-                     showNotification("attempted to execute scripts with no errors.", "Scripts launched",notificationID());
+                     if(new File(Dir.getPath()+"/.noRoot").exists()) {
+                         String CR = "\n";
+                         DataOutputStream os;
+                         Process p = Runtime.getRuntime().exec("sh");
+                         os = new DataOutputStream(p.getOutputStream());
+                         os.writeBytes("cd " + Dir.getAbsolutePath() + CR);
+                         os.writeBytes("for file in $(pwd)/*; do sh $file; done" + CR);
+                         os.writeBytes("exit" + CR);
+                         os.writeBytes("exit" + CR);
+                         os.flush();
+                         os.close();
+                         showNotification("executed scripts with no errors (no su).", "Scripts launched", notificationID());
+                     }else{
+                         String CR = "\n";
+                         DataOutputStream os;
+                         Process p = Runtime.getRuntime().exec("su");
+                         os = new DataOutputStream(p.getOutputStream());
+                         os.writeBytes("cd " + Dir.getAbsolutePath() + CR);
+                         os.writeBytes("for file in $(pwd)/*; do sh $file; done" + CR);
+                         os.writeBytes("exit" + CR);
+                         os.flush();
+                         os.close();
+                         showNotification("executed scripts with no errors.", "Scripts launched", notificationID());
+                     }
                  }catch(IOException e) {
                      showNotification("There was a error!", "Script launching failed", notificationID());
                  }
