@@ -4,7 +4,6 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.CompoundButton;
-import android.widget.TextView;
 import android.widget.ToggleButton;
 
 import java.io.File;
@@ -23,7 +22,7 @@ public class Settings extends AppCompatActivity {
             if (TaskFolder.exists()) {
                 if (new File(TaskFolder.getPath() + "/.noRoot").exists()) {
                     toggleRoot.setChecked(true);
-                }else{
+                } else {
                     toggleRoot.setChecked(false);
                 }
             }

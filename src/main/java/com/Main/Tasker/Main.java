@@ -1,22 +1,18 @@
 package com.Main.Tasker;
 
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.widget.Button;
 import android.widget.TextView;
 
 import java.io.File;
-import java.io.IOException;
 
-public class MainActivity extends AppCompatActivity {
+public class Main extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,7 +47,8 @@ public class MainActivity extends AppCompatActivity {
         Intent Help = new Intent(this, Help.class);
         this.startActivity(Help);
     }
-    public void Settings(View v){
+
+    public void Settings(View v) {
         Intent Settings = new Intent(this, Settings.class);
         this.startActivity(Settings);
     }

@@ -14,22 +14,22 @@
     tools:showIn="@layout/activity_settings">
 
     <ToggleButton
+        android:id="@+id/toggleRoot"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
-        android:id="@+id/toggleRoot" />
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true" />
 
     <TextView
-        android:text="Disable root for scripts"
+        android:id="@+id/text_disableRoot"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
+        android:layout_alignBottom="@+id/toggleRoot"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:id="@+id/text_disableRoot"
+        android:layout_alignParentTop="true"
         android:layout_toLeftOf="@+id/toggleRoot"
         android:layout_toStartOf="@+id/toggleRoot"
-        android:layout_alignBottom="@+id/toggleRoot" />
+        android:text="Disable root for scripts" />
 </RelativeLayout>

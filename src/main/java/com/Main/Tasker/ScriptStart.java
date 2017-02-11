@@ -1,18 +1,13 @@
 package com.Main.Tasker;
 
-import android.app.AlertDialog;
 import android.app.IntentService;
 import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Intent;
-import android.content.Context;
 import android.content.res.Resources;
 import android.os.Environment;
-import android.renderscript.Allocation;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.NotificationCompat;
-import android.widget.Toast;
 
 import java.io.BufferedReader;
 import java.io.DataOutputStream;
@@ -20,8 +15,6 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.Date;
-import java.util.UUID;
-import java.util.logging.Logger;
 
 /**
  * An {@link IntentService} subclass for handling asynchronous task requests in
@@ -43,7 +36,7 @@ public class ScriptStart extends IntentService{
              File Dir = new File(Environment.getExternalStorageDirectory().getAbsolutePath()+"/Tasker");
              if(Dir.exists()){
                  try{
-                     if(new File(Dir.getPath()+"/.noRoot").exists()) {
+                     if (new File(Dir.getPath() + "/.noRoot").exists()) {
                          String CR = "\n";
                          DataOutputStream os;
                          Process p = Runtime.getRuntime().exec("sh");
@@ -81,7 +74,7 @@ public class ScriptStart extends IntentService{
      }
     public void showNotification(String text, String title, int notificationID) {
         Resources r = getResources();
-        Intent targetIntent = new Intent(this, MainActivity.class);
+        Intent targetIntent = new Intent(this, Main.class);
         PendingIntent contentIntent = PendingIntent.getActivity(this, 0, targetIntent, PendingIntent.FLAG_UPDATE_CURRENT);
         Notification notification = new NotificationCompat.Builder(this).setSmallIcon(android.R.drawable.ic_dialog_info).setContentTitle(title).setContentText(text).setContentIntent(contentIntent).build();
         NotificationManager notificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
